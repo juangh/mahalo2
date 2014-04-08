@@ -1586,8 +1586,10 @@
                 <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
                     <ul data-role="listview">
                         <li><a href="#top-kardexconcepto" data-transition="flip" data-lang-id="" onclick="llenarTablaKardexConcepto();"><span data-lang-id=''>Top kardex por concepto</span></a></li>
-                        <li><a href="#top-kardexnit" data-transition="flip" data-lang-id="" onclick="llenarTablaKardexNit()"><span data-lang-id=''>Top compras x proveedor</span></a></li>
-
+                        <li><a href="#top-kardexnit" data-transition="flip" data-lang-id="" onclick="llenarTablaKardexNit();"><span data-lang-id=''>Top compras x proveedor</span></a></li>
+                        <li><a href="#top-kardextres" data-transition="flip" data-lang-id="" onclick="llenarTablaKardexTres();"><span data-lang-id=''>Top compras x tres</span></a></li>
+                        <li><a href="#" data-transition="flip" data-lang-id="" onclick=""><span data-lang-id=''>Top compras x cuatro</span></a></li>
+                        <li><a href="#" data-transition="flip" data-lang-id="" onclick=""><span data-lang-id=''>Top compras x cinco</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -1599,7 +1601,7 @@
 
             <header data-role="header" style="display:inline-block; height:40px; width:100%">
                 <a href="#" class="btnAtras" data-transition="flip" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
-                <h1 data-lang-id=''>Top Kardex por concepto</h1>
+                <h1 data-lang-id=''>Top kardex por concepto</h1>
                 <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars"><span data-lang-id="lang17">Inicio</span></a>
                 <nav data-role="navbar">
                     <ul>
@@ -1673,7 +1675,7 @@
 
             <header data-role="header" style="display:inline-block; height:40px; width:100%">
                 <a class="btnAtras" href="#" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
-                <h1 data-lang-id=''>Top kardex por nit</h1>
+                <h1 data-lang-id=''>Top kardex por concepto</h1>
                 <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars">Inicio</a>
                 <nav data-role="navbar">
                     <ul>
@@ -1696,7 +1698,7 @@
                     <div id="puntosKardexConcepto" onclick="graficarLineaKardexConcepto();" style="font-family: Helvetica,Arial,sans-serif; width:33%; font-size: 0.8em; background: #2f2f2f; color: white; display:inline-block; float: left; margin:0; height: 25px; padding-top:1.2em; text-align:center; letter-spacing:0.09em; cursor:pointer;"><span data-lang-id='lang156'>Histograma</span></div>
                 </nav>
                 <br />
-                <div id="contenidoGraficaConcepto" style="position: absolute; top:60; left: 0; height:65%; width:100%; text-align: center; padding-top: 10px">
+                <div id="contenidoGraficaConcepto" style="position: absolute; top: 60; left: 0; height:65%; width:100%; text-align: center; padding-top: 10px">
                     <div id="barKardexConcepto" style="display:none;"></div>
                     <div id="pieKardexConcepto" style="display:none;"></div>
                     <div id="lineKardexConcepto" style="display:none;"></div>
@@ -1710,7 +1712,7 @@
 
             <header data-role="header" style="display:inline-block; height:40px; width:100%">
                 <a href="#" class="btnAtras" data-transition="flip" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
-                <h1 data-lang-id=''>Top Kardex por nit</h1>
+                <h1 data-lang-id=''>Top compras por proveedor</h1>
                 <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars"><span data-lang-id="lang17">Inicio</span></a>
                 <nav data-role="navbar">
                     <ul>
@@ -1747,7 +1749,7 @@
 
             <header data-role="header" style="display:inline-block; height:40px; width:100%">
                 <a class="btnAtras" href="#" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
-                <h1 data-lang-id=''>Top kardex por nit</h1>
+                <h1 data-lang-id=''>Top compras por proveedor</h1>
                 <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars">Inicio</a>
                 <nav data-role="navbar">
                     <ul>
@@ -1779,6 +1781,82 @@
         </section>
         <!-- FIN PAGINA TOP KARDEXNIT 2 -->
 
+        
+        <!-- INICIO PAGINA TOP KARDEXXCONCEPTO -->
+        <section data-role="page" data-theme="b" id="top-kardextres" style="background: #78bde7" data-transition="flip" >
+
+            <header data-role="header" style="display:inline-block; height:40px; width:100%">
+                <a href="#" class="btnAtras" data-transition="flip" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
+                <h1 data-lang-id=''>Top kardex por tres</h1>
+                <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars"><span data-lang-id="lang17">Inicio</span></a>
+                <nav data-role="navbar">
+                    <ul>
+                        <li>
+                            <a data-role="tab" href="#top-kardextres" class="ui-btn-active" style="background: #5393c5"><span data-lang-id="lang125">Tabulada</span></a>
+                        </li>
+                        <li>
+                            <a data-role="tab" href="#tab-kardextres-2" data-transition="none"><span data-lang-id="lang126">Gráfica</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <div id="content-top-kardex" data-role="content">
+                <br /><br />
+                <div id="header"></div>
+                <p style="font-size:0.95em;" id="antesTabla" data-lang-id=''>A continuación se muestra un listado con los conceptos x kardex:</p>
+                <table width="100%" border="0" id="tab-kardextres-1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b">
+                    <thead style="background: #d0e841">
+                        <tr>
+                            <th data-lang-id='lang137'>Registro</th>
+                            <th data-lang-id=''>Concepto</th>
+                            <th data-lang-id=''># Movimientos</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center"></tbody>
+                </table>
+            </div>
+        </section>
+        <!-- FIN PAGINA TOP KARDEXXCONCEPTO -->
+        
+        <!-- INICIO PAGINA TOP 10 VENTAS POR ALMACEN  -->
+        <section data-role="page" data-theme="b" id="tab-kardextres-2" style="background: #78bde7" data-transition="flip" data-dyn="yes" data-in="llenarTablaVentasxAlmacenes();NetearDivsTopGeneral();graficarHistogramaAlmacenes()">
+            <header data-role="header" style="display:inline-block; height:40px; width:100%">
+                <a class="btnAtras" href="#" data-icon="back" data-rel="back"><span data-lang-id="lang16">Atras</span></a> 
+                <h1 data-lang-id=''>top kardex por tres</h1>
+                <a href="javascript:irHome()" class="btnHome" data-transition="flip" data-icon="bars">Inicio</a>
+                <nav data-role="navbar">
+                    <ul>
+                        <li>
+                            <a data-role="tab" href="#top-kardextres"><span data-lang-id="lang125">Tabular</span></a>
+                        </li>
+                        <li>
+                            <a data-role="tab" href="#tab-kardextres-2" class="ui-btn-active" style="background: #5393c5" data-transition="none"><span data-lang-id="lang126">Gráficas</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <br />
+            <div id="content-kardextres-2" data-role="content" style="border-top: 1px solid black; margin:0; padding:0; width:100%;">
+                <br />
+                <nav style="padding-top: 10px; height: 27px;">
+                    <div id="histogramaTres" onclick="graficarHistogramaTres();" style="font-family: Helvetica,Arial,sans-serif; width:33%; font-size: 0.8em; background: #5393c5; color: white; display:inline-block; float: left; margin:0; height: 25px; padding-top:1.2em; text-align:center; border-right:1px solid black; letter-spacing:0.09em; cursor:pointer;"><span data-lang-id='lang154'>Histograma</span></div>
+                    <div id="tortatres" onclick="graficarTortaTres();" style="font-family: Helvetica,Arial,sans-serif; width:33%; font-size: 0.8em; background: #2f2f2f; color: white; display:inline-block; float: left; margin:0; height: 25px; padding-top:1.2em; text-align:center; border-right:1px solid black; letter-spacing:0.09em; cursor:pointer;"><span data-lang-id='lang155'>Histograma</span></div>
+                    <div id="puntosTres" onclick="graficarLineaTres();" style="font-family: Helvetica,Arial,sans-serif; width:33%; font-size: 0.8em; background: #2f2f2f; color: white; display:inline-block; float: left; margin:0; height: 25px; padding-top:1.2em; text-align:center; letter-spacing:0.09em; cursor:pointer;"><span data-lang-id='lang156'>Histograma</span></div>
+                </nav>
+                <br />
+                <div id="contenidoGraficaTres" style="position: absolute; top:60; left: 0; height:65%; width:100%; text-align: center; padding-top: 10px">
+                    <div id="barTres" style="display:none;"></div>
+                    <div id="pieTres" style="display:none;"></div>
+                    <div id="lineTres" style="display:none;"></div>
+                </div>                
+            </div>
+        </section>
+        <!-- FIN TOP 10 VENTAS POR AlMACEN -->
+        
+        
+        
         <!-- INICIO JAVASCRIPT -->
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/core/datos/QueryDB.js"></script>
