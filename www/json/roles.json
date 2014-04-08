@@ -1,0 +1,48 @@
+{
+    "rol-0": 
+    {
+        "teclado-0": 
+        {
+            "elemento-0" : "off",
+            "elemento-1" : "off",
+            "elemento-2" : "off",
+            "elemento-3" : "off",
+            "elemento-4" : "off",
+            "elemento-5" : "off",
+            "elemento-6" : "off",
+            "elemento-7" : "off",
+            "elemento-8" : "off"
+        },
+        "teclado-1" : 
+        {
+            "elemento-0" : "off",
+            "elemento-1" : "off",
+            "elemento-2" : "off"
+        },
+        "teclado-2" : {},
+        "teclado-3" : 
+        {
+            "elemento-0" : "off",
+            "elemento-1" : "off"
+        }
+    },
+    "rol-1": 
+    {
+        "teclado-0": 
+        {
+            "elemento-0" : "off",
+            "elemento-1" : "on",
+            "elemento-2" : "off"
+        },
+        "teclado-1" : 
+        {
+            "elemento-0" : "on",
+            "elemento-1" : "off",
+            "elemento-2" : "off"
+        },
+        "teclado-2" : {},
+        "teclado-3" : {},
+        "teclado-4" : {},
+        "teclado-5" : {}
+    }
+}

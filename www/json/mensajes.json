@@ -1,0 +1,12 @@
+{
+    "es": {
+        "msj0": "Usuario y contraseña no válidos",
+        "msj1": "Usuario sin privilegios de acceso",
+        "msj2": "El rango de días sobrepasa el valor permitido"
+    },
+    "en": {
+        "msj0": "Invalid username and password",
+        "msj1": "Unprivileged user access",
+        "msj2": "The range of days exceeds the permissible value"
+    }
+}
