@@ -1,15 +1,21 @@
 jQuery(document).on("ready", init);
-/*$(".jdg").on("click",function(){
- alert('click');
- });*/
 
-
-
-function test(){
-    
+function validarConexionPortalWeb(){
+    if($("#txtUsuario").length > 0){
+        setTimeout("conectar()",500);
+        return true;
+    }
+    validarConexionPortalWeb();
+    return true;
 }
+function test(){}
 function init()
-{
+{    
+    if ((localStorage['test'] == 1)) {
+        localStorage['test'] = 0;
+        validarConexionPortalWeb();
+    } 
+    
     if( navigator.userAgent.match( /Android/i ) ) {
         document.addEventListener('deviceready', test,false);
     }
@@ -22,20 +28,25 @@ function init()
         });
     }
     var fecha = getCurrentDate(new Date().toString());
+    date_ventas = fecha;
     $("#date_inicial").val(fecha);
     $("#date_corte").val(fecha);
+    $("#date_ventas").val(fecha);
     $("#date_inicial_transacciones").val(fecha);
     $("#date_corte_transacciones").val(fecha);
-    new JsDatePick({useMode: 2, target: "date_inicial", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
+    new JsDatePick({useMode: 2, target: "date_vedate_inicialntas", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
+    new JsDatePick({useMode: 2, target: "", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
     new JsDatePick({useMode: 2, target: "date_corte", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
     new JsDatePick({useMode: 2, target: "date_inicial_transacciones", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
     new JsDatePick({useMode: 2, target: "date_corte_transacciones", dateFormat: "%Y-%m-%d", cellColorScheme: "armygreen"});
 }
 function loadUrl()
 {
-    var ref = window.open(encodeURI('http://mahalo.saas.com.co/portalmahalo/'), '_self', 'location=yes');
+    localStorage['test'] = 1;
+    var ref = window.open(encodeURI('http://mahalo.saas.com.co/portalmahalo'), '_system', 'location=yes');
     ref.addEventListener('loadstart', function(event) { alert(event.type + ' - ' + event.url); } );
 }
+
 function loadInit()
 {
     var usuario = '';

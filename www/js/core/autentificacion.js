@@ -41,7 +41,7 @@ function conectar()
         initImagenes(tipoUsuario);
         bottom = drawBottom(tipoUsuario);
         jQuery("#grid").append(drawGrid(tipoUsuario));
-        jQuery.mobile.changePage("#home", "fade");
+        jQuery.mobile.changePage("#home", "fade"); 
         deshabilitarIngreso();
     } else {
 

@@ -55,7 +55,7 @@ function drawGrid(elementos)
                         "<div class=\"ui-block-" + posicion[k] + " ampliarBloque\" style=\"width:100%; text-align:center; \" data-grid-position=\"" + puntero[tag] + "\">";
                 if (anclas[puntero[tag]] === 'http://mahalo.saas.com.co/portalmahalo') {
                     output +=
-                            "<span onclick='loadUrl()'>" +
+                            "<span onclick='loadUrl();ingresarPortal();'>" +
                             "<figure>" +
                             "<img src=" + imagenes[puntero[tag]] + " width=\"48\" height=\"48\" />" +
                             "<figcaption><span data-lang-id=\"lang" + (puntero[tag] + 5) + "\">" + secciones[puntero[tag]] + "</span></figcaption>" +

@@ -31,6 +31,7 @@ function salir()
 {
     history.go(-2);
     pagina = -2;
+    localStorage['test'] = 0;
 }
 
 function irHomeMenuSlide(posicion)
@@ -129,7 +130,6 @@ function contarCargaPaginas()
             $("#checkbox-h-6").prop('checked', true).checkboxradio("refresh");
         }
     }
-
     if (salida === -1) {
         var prefijo = curpath.substr(0, 3);
         if (prefijo === 'tab') {
@@ -350,9 +350,16 @@ function contarCargaPaginas()
         }
     }
     if ((curpath === "top-ventasxclientes") || (curpath === "top-ventasxvend") || (curpath === "top-ventasxprod") || (curpath === "top-ventasxdesc") || (curpath === "#top-ventasxtipoventas") || (curpath === "top-ventasxalmacenes") || (curpath === "top-kardexconcepto") || (curpath === "top-kardexnit")) {
+        date_vent = $("#date_ventas").val();
         pagina = 2;
     } 
     pagina_anterior = curpath;
+    //alert(localStorage['test']);
+    
+    /*if (current === 'login') {
+        alert('#login');
+    }*/
+    
 }
 
 function initVentasGeneral()

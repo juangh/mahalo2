@@ -9,4 +9,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="http://mahalo.saas.com.co/portalmahalo" />
+    
+    <preference name="stay-in-webview" value="true" />
+    
 </widget>
