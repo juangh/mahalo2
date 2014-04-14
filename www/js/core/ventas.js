@@ -33,8 +33,9 @@ function graficarHistogramaVentas()
     jQuery("#histogramaVentas").css("background", "#78bde7");
     jQuery("#tortaVentas").css("background", "#2f2f2f");
     jQuery("#puntosVentas").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10Clientes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -54,6 +55,14 @@ function graficarHistogramaVentas()
                         posicion = i;
                     }
                 }
+                jQuery("#contenidoGraficaVentas").css('width', '80%');
+                if (renderLeyenda === true) {
+                    $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                    for (var i = 0; i < (puntos.size + 1); i++) {
+                        $("#legenda_torta_ventas").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                    }
+                    renderLeyenda = false;
+                }
                 if (inicioHistogramaVentas) {
                     $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                     inicioHistogramaVentas = false;
@@ -62,6 +71,7 @@ function graficarHistogramaVentas()
         }
     }
 }
+renderLeyendaTorta = true;
 function graficarTortaVentas()
 {
     var GRAFICA = 'torta_ventas';
@@ -70,8 +80,9 @@ function graficarTortaVentas()
     jQuery("#histogramaVentas").css("background", "#2f2f2f");
     jQuery("#tortaVentas").css("background", "#78bde7");
     jQuery("#puntosVentas").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
     var puntos = traerTop10Clientes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -87,6 +98,14 @@ function graficarTortaVentas()
                 if ($("canvas.peity")[i].id === GRAFICA) {
                     posicion = i;
                 }
+            }
+            jQuery("#contenidoGraficaVentas").css('width', '80%');
+            if (renderLeyendaTorta === true) {
+                $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaTorta = false;
             }
             if (inicioTortaVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -530,6 +549,45 @@ function graficarLineaTiposVentas()
         }
     }
 }
+
+function generarAleatorio(inferior, superior) {
+    var numPosibilidades = superior - inferior;
+    var aleat = Math.random() * numPosibilidades;
+    var aleat = Math.floor(aleat);
+    return parseInt(inferior) + aleat;
+}
+
+function coloresFijos(num_colores) {
+    var colores = new Array("yellow", "red", "#27a1b4", "#4169e1", "#a3e3ed", "#587cdc", "#720000", "#000000", "#00ff7f", "#ff6347",
+            "#7cfc00", "#800000", "#f0e68c", "#708090", "#ffd700", "#ff1493", "#4682b4", "#800080", "#ff0000", "#ffa07a", "#00ffff", "#9370db"
+            );
+    var colores_out = new Array();
+    for (var i = 0; i < num_colores; i++) {
+        colores_out[i] = colores[i];
+    }
+    return colores_out;
+}
+
+function generarColorAleatorio() {
+    var hexadecimal = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+    var color_aleatorio = "#";
+    var posarray;
+    for (var i = 0; i < 6; i++) {
+        posarray = generarAleatorio(0, hexadecimal.length);
+        color_aleatorio += hexadecimal[posarray];
+    }
+    return color_aleatorio;
+}
+
+function generarColoresAleatorios(num_colores)
+{
+    var colores = new Array();
+    for (var i = 0; i < num_colores; i++) {
+        colores[i] = generarColorAleatorio();
+    }
+    return colores;
+}
+var renderLeyenda = true;
 function graficarHistogramaAlmacenes()
 {
     var GRAFICA = 'histograma_almacenes';
@@ -538,8 +596,9 @@ function graficarHistogramaAlmacenes()
     jQuery("#histogramaAlmacenes").css("background", "#78bde7");
     jQuery("#tortaAlmacenes").css("background", "#2f2f2f");
     jQuery("#puntosAlmacenes").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10Almacenes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -556,6 +615,14 @@ function graficarHistogramaAlmacenes()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
+            if (renderLeyenda === true) {
+                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyenda = false;
+            }
             if (inicioHistogramaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioHistogramaAlmacenes = false;
@@ -563,10 +630,12 @@ function graficarHistogramaAlmacenes()
         }
     }
 }
+var yaGrafico = false;
 function graficarTortaAlmacenes()
 {
     var GRAFICA = 'torta_almacenes';
     var posicion = 0;
+    var valores = new Array();
     jQuery("canvas.peity").removeClass("histAlmacenes").removeClass("pointsAlmacenes");
     jQuery("#histogramaAlmacenes").css("background", "#2f2f2f");
     jQuery("#tortaAlmacenes").css("background", "#78bde7");
@@ -577,6 +646,7 @@ function graficarTortaAlmacenes()
         if (puntos) {
             var barras = "";
             for (var i = 0; i < puntos.size + 1; i++) {
+                valores[i] = Math.abs(puntos[i]['y']);
                 barras = barras + "," + Math.abs(puntos[i]['y']);
             }
             jQuery("#contenidoGraficaAlmacenes").html('');
@@ -594,7 +664,13 @@ function graficarTortaAlmacenes()
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaAlmacenes = false;
             }
+            if (yaGrafico === false) {
+                for (var i = 0; i < puntos.size + 1; i++) {
+                    $("#legenda_torta_almacenes").append($.trim(valores[i]));
+                }
+            }
         }
+        yaGrafico = true;
     }
 }
 function graficarLineaAlmacenes()
@@ -667,7 +743,7 @@ function traerTop10Almacenes()
     date_vent = date_ventas;
     var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_almacenes";
-    var sql = "select " + num_reg + " m.d_almacen||'('||m.c_almacen||')' almacen, sum(h.vr_subtotal) from m_puntos_venta m inner join h_ventas h on m.c_almacen=h.c_almacen  where h.f_factura = '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 1;";
+    var sql = "select " + num_reg + " m.d_almacen||'('||m.c_almacen||')' almacen, sum(h.vr_subtotal) from m_puntos_venta m inner join h_ventas h on m.c_almacen=h.c_almacen  where h.f_factura = '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc;";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;

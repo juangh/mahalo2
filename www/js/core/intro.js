@@ -1,24 +1,25 @@
 jQuery(document).on("ready", init);
 
-function validarConexionPortalWeb(){
-    if($("#txtUsuario").length > 0){
-        setTimeout("conectar()",500);
+function validarConexionPortalWeb() {
+    if ($("#txtUsuario").length > 0) {
+        setTimeout("conectar()", 500);
         return true;
     }
     validarConexionPortalWeb();
     return true;
 }
-function test(){}
+
 function init()
-{    
+{
     if ((localStorage['test'] == 1)) {
         localStorage['test'] = 0;
         validarConexionPortalWeb();
-    } 
-    
-    if( navigator.userAgent.match( /Android/i ) ) {
-        document.addEventListener('deviceready', test,false);
     }
+
+    if (navigator.userAgent.match(/Android/i)) {
+        document.addEventListener('deviceready', test, false);
+    }
+    
     $("#version").html("&nbsp;" + version);
     $("#version").css("font-weight", "bold");
     $(document).css('border', '1px solid green');
@@ -44,7 +45,9 @@ function loadUrl()
 {
     localStorage['test'] = 1;
     var ref = window.open(encodeURI('http://mahalo.saas.com.co/portalmahalo'), '_system', 'location=yes');
-    ref.addEventListener('loadstart', function(event) { alert(event.type + ' - ' + event.url); } );
+    ref.addEventListener('loadstart', function(event) {
+        alert(event.type + ' - ' + event.url);
+    });
 }
 
 function loadInit()

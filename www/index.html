@@ -76,7 +76,7 @@
             <div id="grid" style="text-align: center;">&nbsp;</div>
             <br>                
             <br>
-            <div style='text-align:center; position:absolute; bottom: 70px; right: 30px'><span data-lang-id='lang157'></span><span id='version'></span>&nbsp;&nbsp;&nbsp;</div>
+            <div style='text-align:center; position:absolute; bottom: 70px; right: 30px'><span data-lang-id='lang157'></span><span id='version'>1.2</span>&nbsp;&nbsp;&nbsp;</div>
         </div>
         <footer data-role="footer" data-position="fixed">
             <div id="menu-inferior" data-role="navbar">
@@ -1410,6 +1410,7 @@
                 <div id="pieVentas" style="display:none;"></div>
                 <div id="lineVentas" style="display:none;"></div>
             </div>
+            <div id="legenda_torta_ventas" style="float: right; position:absolute; left:80%; width:19%; height:67%; z-index:10;">&nbsp;</div>
         </div>
     </section>
     <!-- FIN MEN VENTAS -->
@@ -1587,11 +1588,13 @@
                 <div id="puntosAlmancenes" onclick="graficarLineaAlmacenes();" style="font-family: Helvetica,Arial,sans-serif; width:33%; font-size: 0.8em; background: #2f2f2f; color: white; display:inline-block; float: left; margin:0; height: 25px; padding-top:1.2em; text-align:center; letter-spacing:0.09em; cursor:pointer;"><span data-lang-id='lang156'>Histograma</span></div>
             </nav>
             <br />
-            <div id="contenidoGraficaAlmacenes" style="position: absolute; top:60; left: 0; height:65%; width:100%; text-align: center; padding-top: 10px">
+            <br />
+            <div id="contenidoGraficaAlmacenes" style="float: left; position: absolute; top:60; left: 0; height:65%; width:100%; text-align: center; padding-top: 10px">
                 <div id="barAlmacenes" style="display:none;"></div>
                 <div id="pieAlmacenes" style="display:none;"></div>
                 <div id="lineAlmacenes" style="display:none;"></div>
-            </div>                
+            </div>     
+            <div id="legenda_torta_almacenes" style="float: right; position:absolute; left:80%; width:19%; height:67%; z-index:10;">&nbsp;</div>
         </div>
     </section>
     <!-- FIN TOP 10 VENTAS POR AlMACEN -->
@@ -1906,13 +1909,9 @@
     <script type="text/javascript" src="js/core/rules.js"></script>
     <script type="text/javascript" src="js/jqm/jquery.mobile-1.3.1.js"></script>
     <script type="text/javascript" src="js/jqm/pluggins/peity.js"></script>
-    <!-- <script type="text/javascript" src="js/jqm/pluggins/fixedheadertable.js"></script> -->
-    <script type="text/javascript" src="js/common/jsdatepicks/jsDatePick.min.1.3.js"></script>
-    <script type="text/javascript" src="js/jsapi.js"></script>
-    <!-- <script type="text/javascript" src="js/cordova.js"></script> -->
-    <script type="text/javascript" src="js/multithread.js"></script>
+    <script type="text/javascript" src="js/common/jsdatepicks/jsDatePick.min.1.3.js"></script> 
+    <!-- <script type="text/javascript" src="js/cordova.js"></script> --> 
     <script type="text/javascript" src="js/core/test.js"></script>
-    <script type="text/javascript" src="js/common/jsdatepicks/jsDatePick.min.1.3.js"></script>
     <!-- FIN JAVASCRIPT -->
 
 </body> 

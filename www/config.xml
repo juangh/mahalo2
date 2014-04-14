@@ -12,5 +12,6 @@
     <access origin="http://mahalo.saas.com.co/portalmahalo" />
     
     <preference name="stay-in-webview" value="true" />
+    <plugin name="Network Status" value="org.apache.cordova.NetworkManager"/>
     
 </widget>
