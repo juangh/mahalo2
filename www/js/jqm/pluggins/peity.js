@@ -76,7 +76,6 @@
         height: height,
         width: width
       }).addClass("peity").data("peity", this);
-
       this.canvas = canvas = $canvas[0];
       this.context = canvas.getContext("2d");
       this.$el.hide().after(canvas);
@@ -107,7 +106,7 @@
     {
       colours: ["#ff9900", "#fff4dd", "#ffc66e"],
       delimiter: null,
-      diameter: 16
+      diameter: 12
     },
     function(opts) {
       if (!opts.delimiter) {

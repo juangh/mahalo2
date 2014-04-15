@@ -17,7 +17,7 @@ function toCurrency(cnt) {
         return 0;
     var sgn = (cnt === (cnt = Math.abs(cnt)));
     cnt = Math.floor(cnt * 100 + 0.5);
-    cvs = cnt % 100;
+    cvs = cnt % 100; 
     cnt = Math.floor(cnt / 100).toString();
     if (cvs < 10)
         cvs = '0' + cvs;
@@ -55,11 +55,11 @@ function graficarHistogramaVentas()
                         posicion = i;
                     }
                 }
-                jQuery("#contenidoGraficaVentas").css('width', '80%');
+                jQuery("#contenidoGraficaVentas").css('width', '70%');
                 if (renderLeyenda === true) {
-                    $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                    $("#legenda_torta_ventas").append("<br><b>TOTAL VENTAS</b><BR><BR>");
                     for (var i = 0; i < (puntos.size + 1); i++) {
-                        $("#legenda_torta_ventas").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                        $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black; background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div></div><br>");
                     }
                     renderLeyenda = false;
                 }
@@ -67,10 +67,10 @@ function graficarHistogramaVentas()
                     $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                     inicioHistogramaVentas = false;
                 }
-            }
+            }            
         }
     }
-}
+} 
 renderLeyendaTorta = true;
 function graficarTortaVentas()
 {
@@ -84,7 +84,7 @@ function graficarTortaVentas()
     var colores = coloresFijos(puntos.size + 1);
     jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
-        if (puntos) {
+        if (puntos) { 
             var barras = "";
             for (var i = 0; i < puntos.size + 1; i++) {
                 barras = barras + "," + puntos[i]['y'];
@@ -103,7 +103,7 @@ function graficarTortaVentas()
             if (renderLeyendaTorta === true) {
                 $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
                 for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
                 }
                 renderLeyendaTorta = false;
             }
@@ -114,16 +114,18 @@ function graficarTortaVentas()
         }
     }
 }
+var renderLeyendaLineas = true;
 function graficarLineaVentas()
 {
-    var GRAFICA = 'linea_ventas';
+    var GRAFICA = 'linea_ventas'; 
     var posicion = 0;
     jQuery("canvas.peity").removeClass("histVentas").removeClass("barsVentas");
     jQuery("#histogramaVentas").css("background", "#2f2f2f");
     jQuery("#tortaVentas").css("background", "#2f2f2f");
     jQuery("#puntosVentas").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10Clientes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -140,6 +142,14 @@ function graficarLineaVentas()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaVentas").css('width', '80%');
+            if (renderLeyendaLineas === true) {
+                $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaLineas = false;
+            }
             if (inicioLineaVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaVentas = false;
@@ -147,6 +157,8 @@ function graficarLineaVentas()
         }
     }
 }
+renderLeyendaVendedoresBarras = true;
+
 function graficarHistogramaVendedores()
 {
     var GRAFICA = 'histograma_vendedores';
@@ -155,8 +167,9 @@ function graficarHistogramaVendedores()
     jQuery("#histogramaVendedores").css("background", "#78bde7");
     jQuery("#tortaVendedores").css("background", "#2f2f2f");
     jQuery("#puntosVendedores").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10Vendedores();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -173,14 +186,23 @@ function graficarHistogramaVendedores()
                     posicion = i;
                 }
             }
-            if (inicioHistogramaVendedores) {
-                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+            jQuery("#contenidoGraficaVendedores").css('width', '80%');
+            if (renderLeyendaVendedoresBarras === true) {
+                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaVendedoresBarras = false;
+            }
+            if (inicioHistogramaVendedores) { 
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")"); 
                 inicioHistogramaVendedores = false;
             }
         }
-    }
-}
-function graficarTortaVendedores()
+    } 
+} 
+renderLeyendaVendedoresTorta = true;
+function graficarTortaVendedores() 
 {
     var GRAFICA = 'torta_vendedores';
     var posicion = 0;
@@ -188,8 +210,9 @@ function graficarTortaVendedores()
     jQuery("#histogramaVendedores").css("background", "#2f2f2f");
     jQuery("#tortaVendedores").css("background", "#78bde7");
     jQuery("#puntosVendedores").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
     var puntos = traerTop10Vendedores();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -207,6 +230,14 @@ function graficarTortaVendedores()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaVendedores").css('width', '80%');
+            if (renderLeyendaVendedoresTorta === true) {
+                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaVendedoresTorta = false;
+            }
             if (inicioTortaVendedores) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaVendedores = false;
@@ -214,6 +245,7 @@ function graficarTortaVendedores()
         }
     }
 }
+renderLeyendaVendedoresLineas = true;
 function graficarLineaVendedores()
 {
     var GRAFICA = 'linea_vendedores';
@@ -222,8 +254,9 @@ function graficarLineaVendedores()
     jQuery("#histogramaVendedores").css("background", "#2f2f2f");
     jQuery("#tortaVendedores").css("background", "#2f2f2f");
     jQuery("#puntosVendedores").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10Vendedores();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -241,13 +274,22 @@ function graficarLineaVendedores()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaVendedores").css('width', '80%');
+            if (renderLeyendaVendedoresLineas === true) {
+                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaVendedoresLineas = false;
+            }
             if (inicioLineaVendedores) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaVendedores = false;
             }
-        }
+        } 
     }
 }
+renderLeyendaProductosBarras = true;
 function graficarHistogramaProductos()
 {
     var GRAFICA = 'histograma_productos';
@@ -256,8 +298,9 @@ function graficarHistogramaProductos()
     jQuery("#histogramaProductos").css("background", "#78bde7");
     jQuery("#tortaProductos").css("background", "#2f2f2f");
     jQuery("#puntosProductos").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10Productos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -274,6 +317,14 @@ function graficarHistogramaProductos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaProductos").css('width', '80%');
+            if (renderLeyendaProductosBarras === true) {
+                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaProductosBarras = false;
+            }
             if (inicioHistogramaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioHistogramaProductos = false;
@@ -289,8 +340,9 @@ function graficarTortaProductos()
     jQuery("#histogramaProductos").css("background", "#2f2f2f");
     jQuery("#tortaProductos").css("background", "#78bde7");
     jQuery("#puntosProductos").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
     var puntos = traerTop10Productos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -307,6 +359,14 @@ function graficarTortaProductos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaProductos").css('width', '80%');
+            if (renderLeyendaProductosTorta === true) {
+                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaProductosTorta = false;
+            }
             if (inicioTortaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaProductos = false;
@@ -314,6 +374,7 @@ function graficarTortaProductos()
         }
     }
 }
+var renderLeyendaProductosLineas = true;
 function graficarLineaProductos()
 {
     var GRAFICA = 'linea_productos';
@@ -322,8 +383,9 @@ function graficarLineaProductos()
     jQuery("#histogramaProductos").css("background", "#2f2f2f");
     jQuery("#tortaProductos").css("background", "#2f2f2f");
     jQuery("#puntosProductos").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10Productos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -340,6 +402,14 @@ function graficarLineaProductos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaProductos").css('width', '80%');
+            if (renderLeyendaProductosLineas === true) {
+                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaProductosLineas = false;
+            }
             if (inicioLineaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaProductos = false;
@@ -347,6 +417,7 @@ function graficarLineaProductos()
         }
     }
 }
+var renderLeyendaDescuentosBarras = true;
 function graficarHistogramaDescuentos()
 {
     var GRAFICA = 'histograma_descuentos';
@@ -355,8 +426,9 @@ function graficarHistogramaDescuentos()
     jQuery("#histogramaDescuentos").css("background", "#78bde7");
     jQuery("#tortaDescuentos").css("background", "#2f2f2f");
     jQuery("#puntosDescuentos").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10Descuentos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -373,6 +445,14 @@ function graficarHistogramaDescuentos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
+            if (renderLeyendaDescuentosBarras === true) {
+                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaDescuentosBarras = false;
+            }
             if (inicioHistogramaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioHistogramaDescuentos = false;
@@ -380,6 +460,7 @@ function graficarHistogramaDescuentos()
         }
     }
 }
+var renderLeyendaDescuentosTorta = true;
 function graficarTortaDescuentos()
 {
     var GRAFICA = 'torta_descuentos';
@@ -388,8 +469,9 @@ function graficarTortaDescuentos()
     jQuery("#histogramaDescuentos").css("background", "#2f2f2f");
     jQuery("#tortaDescuentos").css("background", "#78bde7");
     jQuery("#puntosDescuentos").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
-    var puntos = traerTop10Descuentos();
+     var puntos = traerTop10Descuentos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -406,6 +488,14 @@ function graficarTortaDescuentos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
+            if (renderLeyendaDescuentosTorta === true) {
+                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaDescuentosTorta = false;
+            }
             if (inicioTortaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaDescuentos = false;
@@ -413,6 +503,7 @@ function graficarTortaDescuentos()
         }
     }
 }
+renderLeyendaDescuentosLineas = true;
 function graficarLineaDescuentos()
 {
     var GRAFICA = 'linea_descuentos';
@@ -421,8 +512,9 @@ function graficarLineaDescuentos()
     jQuery("#histogramaDescuentos").css("background", "#2f2f2f");
     jQuery("#tortaDescuentos").css("background", "#2f2f2f");
     jQuery("#puntosDescuentos").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10Descuentos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -439,6 +531,14 @@ function graficarLineaDescuentos()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
+            if (renderLeyendaDescuentosLineas === true) {
+                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaDescuentosLineas = false;
+            }
             if (inicioLineaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaDescuentos = false;
@@ -446,6 +546,7 @@ function graficarLineaDescuentos()
         }
     }
 }
+renderLeyendaTiposVentasBarras = true;
 function graficarHistogramaTiposVentas()
 {
     var GRAFICA = 'histograma_tipos_ventas';
@@ -454,8 +555,9 @@ function graficarHistogramaTiposVentas()
     jQuery("#histogramaTiposVentas").css("background", "#78bde7");
     jQuery("#tortaTiposVentas").css("background", "#2f2f2f");
     jQuery("#puntosTiposVentas").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10TiposVentas();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -472,6 +574,14 @@ function graficarHistogramaTiposVentas()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
+            if (renderLeyendaTiposVentasBarras === true) {
+                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaTiposVentasBarras = false;
+            }
             if (inicioHistogramaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioHistogramaTiposVentas = false;
@@ -480,7 +590,7 @@ function graficarHistogramaTiposVentas()
     }
     return true;
 }
-
+renderLeyendaTiposVentasTorta = true;
 function graficarTortaTiposVentas()
 {
     var GRAFICA = 'torta_tipos_ventas';
@@ -489,8 +599,9 @@ function graficarTortaTiposVentas()
     jQuery("#histogramaTiposVentas").css("background", "#2f2f2f");
     jQuery("#tortaTiposVentas").css("background", "#78bde7");
     jQuery("#puntosTiposVentas").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
     var puntos = traerTop10TiposVentas();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -508,6 +619,14 @@ function graficarTortaTiposVentas()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
+            if (renderLeyendaTiposVentasTorta === true) {
+                $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaTiposVentasTorta = false;
+            }
             if (inicioTortaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaTiposVentas = false;
@@ -515,16 +634,18 @@ function graficarTortaTiposVentas()
         }
     }
 }
+renderLeyendaTiposVentasLineas = true;
 function graficarLineaTiposVentas()
 {
-    var GRAFICA = 'linea_tipos_ventas';
+    var GRAFICA = 'linea_tipos_ventas'; 
     var posicion = 0;
     jQuery("canvas.peity").removeClass("histTiposVentas").removeClass("barsTiposVentas");
     jQuery("#histogramaTiposVentas").css("background", "#2f2f2f");
     jQuery("#tortaTiposVentas").css("background", "#2f2f2f");
     jQuery("#puntosTiposVentas").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10TiposVentas();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -542,6 +663,14 @@ function graficarLineaTiposVentas()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
+            if (renderLeyendaTiposVentasLineas === true) {
+                $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaTiposVentasLineas = false;
+            }
             if (inicioLineaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaTiposVentas = false;
@@ -558,9 +687,7 @@ function generarAleatorio(inferior, superior) {
 }
 
 function coloresFijos(num_colores) {
-    var colores = new Array("yellow", "red", "#27a1b4", "#4169e1", "#a3e3ed", "#587cdc", "#720000", "#000000", "#00ff7f", "#ff6347",
-            "#7cfc00", "#800000", "#f0e68c", "#708090", "#ffd700", "#ff1493", "#4682b4", "#800080", "#ff0000", "#ffa07a", "#00ffff", "#9370db"
-            );
+    var colores = new Array("DarkGreen","SeaGreen","Green","ForestGreen","MediumSeaGreen","LimeGreen","LightGreen","PaleGreen","Lime","LawnGreen","Chartreuse","GreenYellow","Yellow","Gold","Orange","DarkOrange","OrangeRed","Tomato");
     var colores_out = new Array();
     for (var i = 0; i < num_colores; i++) {
         colores_out[i] = colores[i];
@@ -629,8 +756,8 @@ function graficarHistogramaAlmacenes()
             }
         }
     }
-}
-var yaGrafico = false;
+} 
+renderLeyendaAlmacenesGrafica = true;
 function graficarTortaAlmacenes()
 {
     var GRAFICA = 'torta_almacenes';
@@ -640,8 +767,9 @@ function graficarTortaAlmacenes()
     jQuery("#histogramaAlmacenes").css("background", "#2f2f2f");
     jQuery("#tortaAlmacenes").css("background", "#78bde7");
     jQuery("#puntosAlmacenes").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
     var puntos = traerTop10Almacenes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -660,20 +788,24 @@ function graficarTortaAlmacenes()
                     posicion = i;
                 }
             }
+            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
+            if (renderLeyendaAlmacenesGrafica === true) {
+                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaAlmacenesGrafica = false;
+            }
             if (inicioTortaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaAlmacenes = false;
-            }
-            if (yaGrafico === false) {
-                for (var i = 0; i < puntos.size + 1; i++) {
-                    $("#legenda_torta_almacenes").append($.trim(valores[i]));
-                }
             }
         }
         yaGrafico = true;
     }
 }
-function graficarLineaAlmacenes()
+renderLeyendaAlmacenesLineas = true;
+function graficarLineaAlmacenes() 
 {
     var GRAFICA = 'linea_almacenes';
     var posicion = 0;
@@ -681,8 +813,10 @@ function graficarLineaAlmacenes()
     jQuery("#histogramaAlmacenes").css("background", "#2f2f2f");
     jQuery("#tortaAlmacenes").css("background", "#2f2f2f");
     jQuery("#puntosAlmacenes").css("background", "#78bde7");
-    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
     var puntos = traerTop10Almacenes();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
+   
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -699,6 +833,14 @@ function graficarLineaAlmacenes()
                 if ($("canvas.peity")[i].id === GRAFICA) {
                     posicion = i;
                 }
+            }
+            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
+            if (renderLeyendaAlmacenesLineas === true) {
+                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
+                }
+                renderLeyendaAlmacenesLineas= false;
             }
             if (inicioLineaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -815,14 +957,14 @@ function traerTop10Productos()
         puntos[u] = {x: ar_productos[u], y: ar_ventas[u]};
     }
     puntos.size = size;
-    return puntos;
+    return puntos; 
 }
 function traerTop10Clientes()
 {
     date_vent = date_ventas;
     var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_clientes";
-    var sql = "select " + num_reg + " c.nombres ||' '|| c.apellidos ||'('||round(cc_cliente,0)||')' cliente,sum(vr_subtotal) valor_venta from h_ventas a, m_clientes c where a.cc_cliente=c.cedula and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by valor_venta desc";
+    var sql = "select " + num_reg + " c.nombres ||' '|| c.apellidos ||'('||round(cc_cliente,0)||')' cliente, (sum(vr_subtotal)-sum(vr_descuento)) valor_venta from h_ventas a, m_clientes c where a.cc_cliente=c.cedula and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by valor_venta desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -838,11 +980,11 @@ function traerTop10Clientes()
 }
 pts = {};
 function traerTop10Vendedores()
-{
+{ 
     date_vent = date_ventas;
-    var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
+    var num_reg = ' first ' + $("#date_num_reg").val() + ' '; 
     var id_query = "busqueda_top_vendedores";
-    var sql = "select " + num_reg + " d_vendedor || '(' || hv.c_vendedor || ')' vendedor, sum(vr_subtotal) valor_venta from h_ventas hv, m_vendors v where hv.c_vendedor = v.c_vendedor and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by valor_venta desc";
+    var sql = "select  " + num_reg + " d_vendedor || '(' || h.c_vendedor || ')' vendedor, (sum(h.vr_subtotal) - sum(h.vr_descuento)) as sum from h_ventas hv, m_vendors v where h.c_vendedor = v.c_vendedor and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc"; 
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -851,7 +993,7 @@ function traerTop10Vendedores()
     var puntos = {};
     for (var u = 0; u <= size; u++) {
         ar_cedulas[u] = xmlGetRow(id_query, u + 1, 0)['vendedor'];
-        ar_ventas[u] = xmlGetRow(id_query, u + 1, 0)['valor_venta'];
+        ar_ventas[u] = xmlGetRow(id_query, u + 1, 0)['sum'];
         puntos[u] = {x: ar_cedulas[u], y: ar_ventas[u]};
     }
     puntos.size = size;
