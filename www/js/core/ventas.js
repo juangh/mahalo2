@@ -17,7 +17,7 @@ function toCurrency(cnt) {
         return 0;
     var sgn = (cnt === (cnt = Math.abs(cnt)));
     cnt = Math.floor(cnt * 100 + 0.5);
-    cvs = cnt % 100; 
+    cvs = cnt % 100;
     cnt = Math.floor(cnt / 100).toString();
     if (cvs < 10)
         cvs = '0' + cvs;
@@ -56,22 +56,20 @@ function graficarHistogramaVentas()
                     }
                 }
                 jQuery("#contenidoGraficaVentas").css('width', '70%');
-                if (renderLeyenda === true) {
-                    $("#legenda_torta_ventas").append("<br><b>TOTAL VENTAS</b><BR><BR>");
-                    for (var i = 0; i < (puntos.size + 1); i++) {
-                        $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black; background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div></div><br>");
-                    }
-                    renderLeyenda = false;
+                $("#legenda_torta_ventas").css("overflow-y", "scroll");
+                $("#legenda_torta_ventas").css("height", "350px");
+                $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black; background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div></div><br>");
                 }
                 if (inicioHistogramaVentas) {
                     $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                     inicioHistogramaVentas = false;
                 }
-            }            
+            }
         }
     }
-} 
-renderLeyendaTorta = true;
+}
 function graficarTortaVentas()
 {
     var GRAFICA = 'torta_ventas';
@@ -84,7 +82,7 @@ function graficarTortaVentas()
     var colores = coloresFijos(puntos.size + 1);
     jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
-        if (puntos) { 
+        if (puntos) {
             var barras = "";
             for (var i = 0; i < puntos.size + 1; i++) {
                 barras = barras + "," + puntos[i]['y'];
@@ -99,13 +97,12 @@ function graficarTortaVentas()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaVentas").css('width', '80%');
-            if (renderLeyendaTorta === true) {
-                $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaTorta = false;
+            jQuery("#contenidoGraficaVentas").css('width', '70%');
+            $("#legenda_torta_ventas").css("overflow-y", "scroll");
+            $("#legenda_torta_ventas").css("height", "350px");
+            $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioTortaVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -114,10 +111,9 @@ function graficarTortaVentas()
         }
     }
 }
-var renderLeyendaLineas = true;
 function graficarLineaVentas()
 {
-    var GRAFICA = 'linea_ventas'; 
+    var GRAFICA = 'linea_ventas';
     var posicion = 0;
     jQuery("canvas.peity").removeClass("histVentas").removeClass("barsVentas");
     jQuery("#histogramaVentas").css("background", "#2f2f2f");
@@ -142,13 +138,12 @@ function graficarLineaVentas()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaVentas").css('width', '80%');
-            if (renderLeyendaLineas === true) {
-                $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaLineas = false;
+            jQuery("#contenidoGraficaVentas").css('width', '70%');
+            $("#legenda_torta_ventas").css("overflow", "scroll");
+            $("#legenda_torta_ventas").css("height", "350px");
+            $("#legenda_torta_ventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_ventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -157,8 +152,6 @@ function graficarLineaVentas()
         }
     }
 }
-renderLeyendaVendedoresBarras = true;
-
 function graficarHistogramaVendedores()
 {
     var GRAFICA = 'histograma_vendedores';
@@ -186,23 +179,22 @@ function graficarHistogramaVendedores()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaVendedores").css('width', '80%');
-            if (renderLeyendaVendedoresBarras === true) {
-                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaVendedoresBarras = false;
+            jQuery("#contenidoGraficaVendedores").css('width', '70%');
+            $("#legenda_torta_vendedores").css("overflow-y", "scroll");
+            $("#legenda_torta_vendedores").css("height", "350px");
+            $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
-            if (inicioHistogramaVendedores) { 
-                $current = $("canvas.peity:nth-last-child(" + posicion + ")"); 
+            if (inicioHistogramaVendedores) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioHistogramaVendedores = false;
             }
         }
-    } 
-} 
-renderLeyendaVendedoresTorta = true;
-function graficarTortaVendedores() 
+    }
+}
+
+function graficarTortaVendedores()
 {
     var GRAFICA = 'torta_vendedores';
     var posicion = 0;
@@ -230,13 +222,12 @@ function graficarTortaVendedores()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaVendedores").css('width', '80%');
-            if (renderLeyendaVendedoresTorta === true) {
-                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaVendedoresTorta = false;
+            jQuery("#contenidoGraficaVendedores").css('width', '70%');
+            $("#legenda_torta_vendedores").css("overflow-y", "scroll");
+            $("#legenda_torta_vendedores").css("height", "350px");
+            $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioTortaVendedores) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -245,7 +236,6 @@ function graficarTortaVendedores()
         }
     }
 }
-renderLeyendaVendedoresLineas = true;
 function graficarLineaVendedores()
 {
     var GRAFICA = 'linea_vendedores';
@@ -274,22 +264,20 @@ function graficarLineaVendedores()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaVendedores").css('width', '80%');
-            if (renderLeyendaVendedoresLineas === true) {
-                $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaVendedoresLineas = false;
+            jQuery("#contenidoGraficaVendedores").css('width', '70%');
+            $("#legenda_torta_vendedores").css("overflow-y", "scroll");
+            $("#legenda_torta_vendedores").css("height", "350px");
+            $("#legenda_torta_vendedores").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_vendedores").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaVendedores) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioLineaVendedores = false;
             }
-        } 
+        }
     }
 }
-renderLeyendaProductosBarras = true;
 function graficarHistogramaProductos()
 {
     var GRAFICA = 'histograma_productos';
@@ -317,13 +305,12 @@ function graficarHistogramaProductos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaProductos").css('width', '80%');
-            if (renderLeyendaProductosBarras === true) {
-                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaProductosBarras = false;
+            jQuery("#contenidoGraficaProductos").css('width', '70%');
+            $("#legenda_torta_productos").css("overflow-y", "scroll");
+            $("#legenda_torta_productos").css("height", "350px");
+            $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioHistogramaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -359,13 +346,12 @@ function graficarTortaProductos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaProductos").css('width', '80%');
-            if (renderLeyendaProductosTorta === true) {
-                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaProductosTorta = false;
+            jQuery("#contenidoGraficaProductos").css('width', '70%');
+            $("#legenda_torta_productos").css("overflow-y", "scroll");
+            $("#legenda_torta_productos").css("height", "350px");
+            $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioTortaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -374,7 +360,6 @@ function graficarTortaProductos()
         }
     }
 }
-var renderLeyendaProductosLineas = true;
 function graficarLineaProductos()
 {
     var GRAFICA = 'linea_productos';
@@ -402,13 +387,12 @@ function graficarLineaProductos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaProductos").css('width', '80%');
-            if (renderLeyendaProductosLineas === true) {
-                $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaProductosLineas = false;
+            jQuery("#contenidoGraficaProductos").css('width', '70%');
+            $("#legenda_torta_productos").css("overflow-y", "scroll");
+            $("#legenda_torta_productos").css("height", "350px");
+            $("#legenda_torta_productos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_productos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaProductos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -417,7 +401,6 @@ function graficarLineaProductos()
         }
     }
 }
-var renderLeyendaDescuentosBarras = true;
 function graficarHistogramaDescuentos()
 {
     var GRAFICA = 'histograma_descuentos';
@@ -445,13 +428,12 @@ function graficarHistogramaDescuentos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
-            if (renderLeyendaDescuentosBarras === true) {
-                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaDescuentosBarras = false;
+            jQuery("#contenidoGraficaDescuentos").css('width', '70%');
+            $("#legenda_torta_descuentos").css("overflow-y", "scroll");
+            $("#legenda_torta_descuentos").css("height", "350px");
+            $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioHistogramaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -460,7 +442,6 @@ function graficarHistogramaDescuentos()
         }
     }
 }
-var renderLeyendaDescuentosTorta = true;
 function graficarTortaDescuentos()
 {
     var GRAFICA = 'torta_descuentos';
@@ -469,7 +450,7 @@ function graficarTortaDescuentos()
     jQuery("#histogramaDescuentos").css("background", "#2f2f2f");
     jQuery("#tortaDescuentos").css("background", "#78bde7");
     jQuery("#puntosDescuentos").css("background", "#2f2f2f");
-     var puntos = traerTop10Descuentos();
+    var puntos = traerTop10Descuentos();
     var colores = coloresFijos(puntos.size + 1);
     jQuery.fn.peity.defaults.pie = {colours: colores, delimiter: null, diameter: "100%", height: null, width: null};
     if (puntos.size !== -1) {
@@ -488,13 +469,12 @@ function graficarTortaDescuentos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
-            if (renderLeyendaDescuentosTorta === true) {
-                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaDescuentosTorta = false;
+            jQuery("#contenidoGraficaDescuentos").css('width', '70%');
+            $("#legenda_torta_descuentos").css("overflow-y", "scroll");
+            $("#legenda_torta_descuentos").css("height", "350px");
+            $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioTortaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -503,7 +483,6 @@ function graficarTortaDescuentos()
         }
     }
 }
-renderLeyendaDescuentosLineas = true;
 function graficarLineaDescuentos()
 {
     var GRAFICA = 'linea_descuentos';
@@ -531,13 +510,12 @@ function graficarLineaDescuentos()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaDescuentos").css('width', '80%');
-            if (renderLeyendaDescuentosLineas === true) {
-                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaDescuentosLineas = false;
+            jQuery("#contenidoGraficaDescuentos").css('width', '70%');
+            $("#legenda_torta_descuentos").css("overflow-y", "scroll");
+            $("#legenda_torta_descuentos").css("height", "350px");
+            $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaDescuentos) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -546,7 +524,6 @@ function graficarLineaDescuentos()
         }
     }
 }
-renderLeyendaTiposVentasBarras = true;
 function graficarHistogramaTiposVentas()
 {
     var GRAFICA = 'histograma_tipos_ventas';
@@ -574,13 +551,12 @@ function graficarHistogramaTiposVentas()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
-            if (renderLeyendaTiposVentasBarras === true) {
-                $("#legenda_torta_descuentos").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_descuentos").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaTiposVentasBarras = false;
+            jQuery("#contenidoGraficaTiposVentas").css('width', '70%');
+            $("#legenda_torta_tipoventas").css("overflow-y", "scroll");
+            $("#legenda_torta_tipoventas").css("height", "350px");
+            $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioHistogramaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -590,7 +566,6 @@ function graficarHistogramaTiposVentas()
     }
     return true;
 }
-renderLeyendaTiposVentasTorta = true;
 function graficarTortaTiposVentas()
 {
     var GRAFICA = 'torta_tipos_ventas';
@@ -619,13 +594,12 @@ function graficarTortaTiposVentas()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
-            if (renderLeyendaTiposVentasTorta === true) {
-                $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaTiposVentasTorta = false;
+            jQuery("#contenidoGraficaTiposVentas").css('width', '70%');
+            $("#legenda_torta_tipoventas").css("overflow-y", "scroll");
+            $("#legenda_torta_tipoventas").css("height", "350px");
+            $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioTortaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -634,10 +608,9 @@ function graficarTortaTiposVentas()
         }
     }
 }
-renderLeyendaTiposVentasLineas = true;
 function graficarLineaTiposVentas()
 {
-    var GRAFICA = 'linea_tipos_ventas'; 
+    var GRAFICA = 'linea_tipos_ventas';
     var posicion = 0;
     jQuery("canvas.peity").removeClass("histTiposVentas").removeClass("barsTiposVentas");
     jQuery("#histogramaTiposVentas").css("background", "#2f2f2f");
@@ -663,13 +636,12 @@ function graficarLineaTiposVentas()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaTiposVentas").css('width', '80%');
-            if (renderLeyendaTiposVentasLineas === true) {
-                $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaTiposVentasLineas = false;
+            jQuery("#contenidoGraficaTiposVentas").css('width', '70%');
+            $("#legenda_torta_tipoventas").css("overflow-y", "scroll");
+            $("#legenda_torta_tipoventas").css("height", "350px");
+            $("#legenda_torta_tipoventas").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_tipoventas").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaTiposVentas) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -678,23 +650,20 @@ function graficarLineaTiposVentas()
         }
     }
 }
-
 function generarAleatorio(inferior, superior) {
     var numPosibilidades = superior - inferior;
     var aleat = Math.random() * numPosibilidades;
     var aleat = Math.floor(aleat);
     return parseInt(inferior) + aleat;
 }
-
 function coloresFijos(num_colores) {
-    var colores = new Array("DarkGreen","SeaGreen","Green","ForestGreen","MediumSeaGreen","LimeGreen","LightGreen","PaleGreen","Lime","LawnGreen","Chartreuse","GreenYellow","Yellow","Gold","Orange","DarkOrange","OrangeRed","Tomato");
+    var colores = new Array("DarkGreen", "SeaGreen", "Green", "ForestGreen", "MediumSeaGreen", "LimeGreen", "LightGreen", "PaleGreen", "Lime", "LawnGreen", "Chartreuse", "GreenYellow", "Yellow", "Gold", "Orange", "DarkOrange", "OrangeRed", "Tomato");
     var colores_out = new Array();
     for (var i = 0; i < num_colores; i++) {
         colores_out[i] = colores[i];
     }
     return colores_out;
 }
-
 function generarColorAleatorio() {
     var hexadecimal = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
     var color_aleatorio = "#";
@@ -705,7 +674,6 @@ function generarColorAleatorio() {
     }
     return color_aleatorio;
 }
-
 function generarColoresAleatorios(num_colores)
 {
     var colores = new Array();
@@ -714,7 +682,6 @@ function generarColoresAleatorios(num_colores)
     }
     return colores;
 }
-var renderLeyenda = true;
 function graficarHistogramaAlmacenes()
 {
     var GRAFICA = 'histograma_almacenes';
@@ -742,13 +709,12 @@ function graficarHistogramaAlmacenes()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
-            if (renderLeyenda === true) {
-                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyenda = false;
+            jQuery("#contenidoGraficaAlmacenes").css('width', '70%');
+            $("#legenda_torta_almacenes").css("overflow-y", "scroll");
+            $("#legenda_torta_almacenes").css("height", "350px");
+            $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioHistogramaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -756,8 +722,8 @@ function graficarHistogramaAlmacenes()
             }
         }
     }
-} 
-renderLeyendaAlmacenesGrafica = true;
+}
+
 function graficarTortaAlmacenes()
 {
     var GRAFICA = 'torta_almacenes';
@@ -788,14 +754,14 @@ function graficarTortaAlmacenes()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
-            if (renderLeyendaAlmacenesGrafica === true) {
-                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaAlmacenesGrafica = false;
+            jQuery("#contenidoGraficaAlmacenes").css('width', '70%');
+            $("#legenda_torta_almacenes").css("overflow-y", "scroll");
+            $("#legenda_torta_almacenes").css("height", "350px");
+            $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
+
             if (inicioTortaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
                 inicioTortaAlmacenes = false;
@@ -804,8 +770,7 @@ function graficarTortaAlmacenes()
         yaGrafico = true;
     }
 }
-renderLeyendaAlmacenesLineas = true;
-function graficarLineaAlmacenes() 
+function graficarLineaAlmacenes()
 {
     var GRAFICA = 'linea_almacenes';
     var posicion = 0;
@@ -816,7 +781,7 @@ function graficarLineaAlmacenes()
     var puntos = traerTop10Almacenes();
     var colores = coloresFijos(puntos.size + 1);
     jQuery.fn.peity.defaults.line = {colour: "DarkGreen", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
-   
+
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -825,7 +790,6 @@ function graficarLineaAlmacenes()
             }
             jQuery("#contenidoGraficaAlmacenes").html('');
             jQuery("#contenidoGraficaAlmacenes").html('<div id="barAlmacenes" style="display:none;"></div><div id="pieAlmacenes" style="display:none;"></div><div id="lineAlmacenes" style="display:none;"></div>');
-
             jQuery("#lineAlmacenes").text(barras.substr(1));
             jQuery("#lineAlmacenes").peity("line");
             jQuery("#contenidoGraficaAlmacenes").append($("canvas.peity"));
@@ -834,13 +798,12 @@ function graficarLineaAlmacenes()
                     posicion = i;
                 }
             }
-            jQuery("#contenidoGraficaAlmacenes").css('width', '80%');
-            if (renderLeyendaAlmacenesLineas === true) {
-                $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
-                for (var i = 0; i < (puntos.size + 1); i++) {
-                    $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
-                }
-                renderLeyendaAlmacenesLineas= false;
+            jQuery("#contenidoGraficaAlmacenes").css('width', '70%');
+            $("#legenda_torta_almacenes").css("overflow-y", "scroll");
+            $("#legenda_torta_almacenes").css("height", "350px");
+            $("#legenda_torta_almacenes").html("<br><b>TOTAL VENTAS</b><BR><BR>");
+            for (var i = 0; i < (puntos.size + 1); i++) {
+                $("#legenda_torta_almacenes").append("<div style='padding-left:10px;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
             }
             if (inicioLineaAlmacenes) {
                 $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -885,7 +848,7 @@ function traerTop10Almacenes()
     date_vent = date_ventas;
     var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_almacenes";
-    var sql = "select " + num_reg + " m.d_almacen||'('||m.c_almacen||')' almacen, sum(h.vr_subtotal) from m_puntos_venta m inner join h_ventas h on m.c_almacen=h.c_almacen  where h.f_factura = '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc;";
+    var sql = "select " + num_reg + " m.d_almacen||'('||m.c_almacen||')' almacen, (sum(h.vr_subtotal)-sum(h.vr_descuento)) from m_puntos_venta m inner join h_ventas h on m.c_almacen=h.c_almacen  where h.f_factura > '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc;";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -904,7 +867,7 @@ function traerTop10TiposVentas()
     date_vent = date_ventas;
     var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_tipos_ventas";
-    var sql = "select " + num_reg + " m.d_tipo_venta || '(' || m.c_tipo_venta || ')' tipo_venta, sum(vr_subtotal) total from h_ventas h, m_tipos_venta m where h.c_tipo_venta = m.c_tipo_venta and h.f_factura = '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by total desc";
+    var sql = "select " + num_reg + " m.d_tipo_venta || '(' || m.c_tipo_venta || ')' tipo_venta, (sum(vr_subtotal)-sum(vr_descuento)) total from h_ventas h, m_tipos_venta m where h.c_tipo_venta = m.c_tipo_venta and h.f_factura = '" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by total desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -957,14 +920,14 @@ function traerTop10Productos()
         puntos[u] = {x: ar_productos[u], y: ar_ventas[u]};
     }
     puntos.size = size;
-    return puntos; 
+    return puntos;
 }
 function traerTop10Clientes()
 {
     date_vent = date_ventas;
     var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_clientes";
-    var sql = "select " + num_reg + " c.nombres ||' '|| c.apellidos ||'('||round(cc_cliente,0)||')' cliente, (sum(vr_subtotal)-sum(vr_descuento)) valor_venta from h_ventas a, m_clientes c where a.cc_cliente=c.cedula and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by valor_venta desc";
+    var sql = "select " + num_reg + " c.nombres ||' '|| c.apellidos ||'('||round(cc_cliente,0)||')' cliente, (sum(vr_subtotal)-sum(vr_descuento)) valor_venta from h_ventas a, m_clientes c where a.cc_cliente=c.cedula and f_factura>'" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by valor_venta desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -980,11 +943,11 @@ function traerTop10Clientes()
 }
 pts = {};
 function traerTop10Vendedores()
-{ 
+{
     date_vent = date_ventas;
-    var num_reg = ' first ' + $("#date_num_reg").val() + ' '; 
+    var num_reg = ' first ' + $("#date_num_reg").val() + ' ';
     var id_query = "busqueda_top_vendedores";
-    var sql = "select  " + num_reg + " d_vendedor || '(' || h.c_vendedor || ')' vendedor, (sum(h.vr_subtotal) - sum(h.vr_descuento)) as sum from h_ventas hv, m_vendors v where h.c_vendedor = v.c_vendedor and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc"; 
+    var sql = "select " + num_reg + " d_vendedor || '(' || h.c_vendedor || ')' vendedor, (sum(h.vr_subtotal) - sum(h.vr_descuento)) as sum from h_ventas h, m_vendors v where h.c_vendedor = v.c_vendedor and f_factura='" + formatearFecha($("#date_ventas").val()) + "' group by 1 order by 2 desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;

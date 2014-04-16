@@ -6,8 +6,9 @@ function graficarHistogramaKardexConcepto()
     jQuery("#histogramaKardexConcepto").css("background", "#78bde7");
     jQuery("#tortaKardexConcepto").css("background", "#2f2f2f");
     jQuery("#puntosKardexConcepto").css("background", "#2f2f2f");
-    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     var puntos = traerTop10KardexConceptos();
+    var colores = coloresFijos(puntos.size + 1);
+    jQuery.fn.peity.defaults.bar = {colours: colores, delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
     if (puntos.size !== -1) {
         if (puntos) {
             var barras = "";
@@ -17,15 +18,21 @@ function graficarHistogramaKardexConcepto()
             if (barras === '') {
                 $("#contenidoGraficaConcepto").html("<div style='background: white; margin-left: 25px; margin-right:25px; border:1px solid #CCC; color:red;'><h4 style='text-align:center; color:red;'>No hay datos para realizar la graficación...</h4></div>");
             } else {
-                jQuery("#contenidoGraficaConcepto").html('');
                 jQuery("#contenidoGraficaConcepto").html('<div id="barKardex" style="display:none;"></div><div id="pieKardex" style="display:none;"></div><div id="lineKardex" style="display:none;"></div>');
                 jQuery("#barKardex").text(barras.substr(1));
                 jQuery("#barKardex").peity("bar");
                 jQuery("#contenidoGraficaConcepto").append($("canvas.peity"));
+                jQuery("#contenidoGraficaConcepto").css('width', '70%');
+                $("#legenda_torta_concepto").css("overflow", "scroll");
+                $("#legenda_torta_concepto").css("height", "350px");
+                $("#legenda_torta_concepto").html("<br><b>TOTAL VENTAS</b><BR><BR>");
                 for (var i = 0; i < $("canvas.peity").length; i++) {
                     if ($("canvas.peity")[i].id === GRAFICA) {
                         posicion = i;
                     }
+                }
+                for (var i = 0; i < (puntos.size + 1); i++) {
+                    $("#legenda_torta_concepto").append("<div style='padding-left:10px;border:1px solid black;background:" + colores[i] + "; margin-top:5px;margin-left:5px;width:10px;height:10px;float:left;'></div><div style='float:left;'>&nbsp;" + puntos[i]['y'] + "</div><br>");
                 }
                 if (inicioHistogramaKardexConcepto) {
                     $current = $("canvas.peity:nth-last-child(" + posicion + ")");
@@ -348,7 +355,7 @@ function graficarTortaKardexClientes()
             var barras = "";
             for (var i = 0; i < puntos.size + 1; i++) {
                 barras = barras + "," + puntos[i]['y'];
-            } 
+            }
             jQuery("#contenidoGraficaKardexClientes").html('');
             jQuery("#contenidoGraficaKardexClientes").html('<div id="barKardexClientes" style="display:none;"></div><div id="pieKardexClientes" style="display:none;"></div><div id="lineKardexClientes" style="display:none;"></div>');
             jQuery("#pieKardexKardexClientes").text(barras.substr(1));
@@ -389,7 +396,7 @@ function graficarLineaKardexClientes()
             jQuery("#contenidoGraficaKardexClientes").append(jQuery("canvas.peity"));
             for (var i = 0; i < $("canvas.peity").length; i++) {
                 if ($("canvas.peity")[i].id === GRAFICA) {
-                    posicion = i; 
+                    posicion = i;
                 }
             }
             if (inicioLineaKardexNit) {
@@ -404,7 +411,7 @@ function traerTop10KardexClientes()
 {
     var date = formatearFecha(new Date().toString());
     var id_query = "busqueda_top_kardex_nit";
-    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '"+date+"'  group by h.cc_cliente order by 2 desc";
+    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '" + date + "'  group by h.cc_cliente order by 2 desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -495,7 +502,7 @@ function graficarTortaKardexTres()
             var barras = "";
             for (var i = 0; i < puntos.size + 1; i++) {
                 barras = barras + "," + puntos[i]['y'];
-            } 
+            }
             jQuery("#contenidoGraficaKardexTres").html('');
             jQuery("#contenidoGraficaKardexTres").html('<div id="barKardexTres" style="display:none;"></div><div id="pieKardexTres" style="display:none;"></div><div id="lineKardexTres" style="display:none;"></div>');
             jQuery("#pieKardexKardexTres").text(barras.substr(1));
@@ -536,7 +543,7 @@ function graficarLineaKardexTres()
             jQuery("#contenidoGraficaKardexTres").append(jQuery("canvas.peity"));
             for (var i = 0; i < $("canvas.peity").length; i++) {
                 if ($("canvas.peity")[i].id === GRAFICA) {
-                    posicion = i; 
+                    posicion = i;
                 }
             }
             if (inicioLineaKardexTres) {
@@ -551,7 +558,7 @@ function traerTop10KardexTres()
 {
     var date = formatearFecha(new Date().toString());
     var id_query = "busqueda_top_kardex_tres";
-    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '"+date+"'  group by h.cc_cliente order by 2 desc";
+    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '" + date + "'  group by h.cc_cliente order by 2 desc";
     xmlQueryDB(sql, id_query, 1, false, ruta);
     var ar_status = getStatusDB(id_query);
     var size = ar_status['numrows'] - 1;
@@ -584,5 +591,446 @@ function llenarTablaKardexTres()
     }
     if (size === 0) {
         document.getElementById("tab-kardextres-1").innerHTML = "<thead style='background: white; color:red;'>" + "<tr>" + "<th style='padding:15px'>La búsqueda no arroja datos</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    }
+}
+
+/******************/
+
+function graficarHistogramaKardexCuatro()
+{
+    var GRAFICA = 'historial_kardex_cuatro';
+    var posicion = 0;
+    jQuery("canvas.peity").last().removeClass("barsKardexCuatro").removeClass("pointsKardexCuatro");
+    jQuery("#histogramaKardexCuatro").css("background", "#78bde7");
+    jQuery("#tortaKardexCuatro").css("background", "#2f2f2f");
+    jQuery("#puntosKardexCuatro").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
+    var puntos = traerTop10KardexCuatro();
+    jdg = puntos;
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            if (barras === '') {
+                $("#contenidoGraficaCuatro").html("<div style='background: white; margin-left: 25px; margin-right:25px; border:1px solid #CCC; color:red;'><h4 style='text-align:center; color:red;'>No hay datos para realizar la graficación...</h4></div>");
+            } else {
+                jQuery("#contenidoGraficaKardexCuatro").html('');
+                jQuery("#contenidoGraficaKardexCuatro").html('<div id="barKardexCuatro" style="display:none;"></div><div id="pieKardexCuatro" style="display:none;"></div><div id="lineKardexCuatro" style="display:none;"></div>');
+                jQuery("#barKardexCuatro").text(barras.substr(1));
+                jQuery("#barKardexCuatro").peity("bar");
+                jQuery("#contenidoGraficaCuatro").append($("canvas.peity"));
+                for (var i = 0; i < $("canvas.peity").length; i++) {
+                    if ($("canvas.peity")[i].id === GRAFICA) {
+                        posicion = i;
+                    }
+                }
+                if (inicioHistogramaKardexCuatro) {
+                    $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                    inicioHistogramaKardexCuatro = false;
+                }
+            }
+        }
+    }
+}
+function graficarTortaKardexCuatro()
+{
+    var GRAFICA = 'torta_kardex_cuatro';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexCuatro").removeClass("pointsKardexCuatro");
+    jQuery("#histogramaKardexCuatro").css("background", "#2f2f2f");
+    jQuery("#tortaKardexCuatro").css("background", "#78bde7");
+    jQuery("#puntosKardexCuatro").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
+    var puntos = traerTop10KardexCuatro();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexCuatro").html('');
+            jQuery("#contenidoGraficaKardexCuatro").html('<div id="barKardexCuatro" style="display:none;"></div><div id="pieKardexCuatro" style="display:none;"></div><div id="lineKardexCuatro" style="display:none;"></div>');
+            jQuery("#pieKardexKardexCuatro").text(barras.substr(1));
+            jQuery("#pieKardexKardexCuatro").peity("pie");
+            jQuery("#contenidoGraficaKardexCuatro").append($("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioTortaKardexCuatro) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioTortaKardexCuatro = false;
+            }
+        }
+    }
+}
+function graficarLineaKardexCuatro()
+{
+    var GRAFICA = 'linea_kardex_cuatro';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexCuatro").removeClass("barsKardexCuatro");
+    jQuery("#histogramaKardexCuatro").css("background", "#2f2f2f");
+    jQuery("#tortaKardexCuatro").css("background", "#2f2f2f");
+    jQuery("#puntosKardexCuatro").css("background", "#78bde7");
+    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
+    var puntos = traerTop10KardexCuatro();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexCuatro").html('');
+            jQuery("#contenidoGraficaKardexCuatro").html('<div id="barKardexCuatro" style="display:none;"></div><div id="pieKardexCuatro" style="display:none;"></div><div id="lineKardexCuatro" style="display:none;"></div>');
+            jQuery("#lineKardexKardexCuatro").text(barras.substr(1));
+            jQuery("#lineKardexCuatro").peity("line");
+            jQuery("#contenidoGraficaKardexCuatro").append(jQuery("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioLineaKardexCuatro) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioKardexCuatro = false;
+            }
+        }
+    }
+}
+
+function traerTop10KardexCuatro()
+{
+    var date = formatearFecha(new Date().toString());
+    var id_query = "busqueda_top_kardex_cuatro";
+    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '" + date + "'  group by h.cc_cliente order by 2 desc";
+    xmlQueryDB(sql, id_query, 1, false, ruta);
+    var ar_status = getStatusDB(id_query);
+    var size = ar_status['numrows'] - 1;
+    var ar_nits = [], ar_valores = [];
+    var puntos = {};
+    for (var u = 0; u <= size; u++) {
+        ar_nits[u] = xmlGetRow(id_query, u + 1, 0)['cedula'];
+        ar_valores[u] = xmlGetRow(id_query, u + 1, 0)['cantidad'];
+        puntos[u] = {x: ar_nits[u], y: ar_valores[u]};
+    }
+    puntos.size = size;
+    return puntos;
+}
+
+function llenarTablaKardexCuatro()
+{
+    var datos = traerTop10KardexCuatro();
+    var size = datos.size + 1;
+    var filas = [];
+    for (var i = 0; i < size; i++) {
+        document.getElementById("tab-kardexcuatro-1").innerHTML = "";
+    }
+    document.getElementById("tab-kardexcuatro-1").innerHTML = "<thead style='background: #d0e841'>" + "<tr>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id='lang137'>Registro</span></th>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id=''>Campo1</span></th>" + "<th align='right'><span data-lang-id=''>Campo2</span>&nbsp;&nbsp;</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    for (var i = 0; i < size; i++) {
+        filas[i] = document.createElement("tr");
+        filas[i].setAttribute("id", "tr_" + i);
+        filas[i].setAttribute("style", "text-align:center");
+        filas[i].innerHTML = "<td align='left'>" + espacio + (i + 1) + "</td><td align='left'>" + espacio + datos[i]['x'] + "</td>" + '<td align="right">' + " $" + toCurrency(datos[i]['y']) + "" + espacio + "</td>";
+        document.getElementById("tab-kardexcuatro-1").appendChild(filas[i]);
+    }
+    if (size === 0) {
+        document.getElementById("tab-kardexcuatro-1").innerHTML = "<thead style='background: white; color:red;'>" + "<tr>" + "<th style='padding:15px'>La búsqueda no arroja datos</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    }
+}
+
+/******************/
+
+function graficarHistogramaKardexCinco()
+{
+    var GRAFICA = 'historial_kardex_cinco';
+    var posicion = 0;
+    jQuery("canvas.peity").last().removeClass("barsKardexCinco").removeClass("pointsKardexCinco");
+    jQuery("#histogramaKardexCinco").css("background", "#78bde7");
+    jQuery("#tortaKardexCinco").css("background", "#2f2f2f");
+    jQuery("#puntosKardexCinco").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
+    var puntos = traerTop10KardexCinco();
+    jdg = puntos;
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            if (barras === '') {
+                $("#contenidoGraficaCinco").html("<div style='background: white; margin-left: 25px; margin-right:25px; border:1px solid #CCC; color:red;'><h4 style='text-align:center; color:red;'>No hay datos para realizar la graficación...</h4></div>");
+            } else {
+                jQuery("#contenidoGraficaKardexCinco").html('');
+                jQuery("#contenidoGraficaKardexCinco").html('<div id="barKardexCinco" style="display:none;"></div><div id="pieKardexCinco" style="display:none;"></div><div id="lineKardexCinco" style="display:none;"></div>');
+                jQuery("#barKardexCinco").text(barras.substr(1));
+                jQuery("#barKardexCinco").peity("bar");
+                jQuery("#contenidoGraficaCuatro").append($("canvas.peity"));
+                for (var i = 0; i < $("canvas.peity").length; i++) {
+                    if ($("canvas.peity")[i].id === GRAFICA) {
+                        posicion = i;
+                    }
+                }
+                if (inicioHistogramaKardexCinco) {
+                    $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                    inicioHistogramaKardexCinco = false;
+                }
+            }
+        }
+    }
+}
+function graficarTortaKardexCinco()
+{
+    var GRAFICA = 'torta_kardex_cinco';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexCuatro").removeClass("pointsKardexCinco");
+    jQuery("#histogramaKardexCinco").css("background", "#2f2f2f");
+    jQuery("#tortaKardexCinco").css("background", "#78bde7");
+    jQuery("#puntosKardexCinco").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
+    var puntos = traerTop10KardexCuatro();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexCinco").html('');
+            jQuery("#contenidoGraficaKardexCinco").html('<div id="barKardexCinco" style="display:none;"></div><div id="pieKardexCinco" style="display:none;"></div><div id="lineKardexCinco" style="display:none;"></div>');
+            jQuery("#pieKardexKardexCinco").text(barras.substr(1));
+            jQuery("#pieKardexKardexCinco").peity("pie");
+            jQuery("#contenidoGraficaKardexCinco").append($("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioTortaKardexCinco) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioTortaKardexCinco = false;
+            }
+        }
+    }
+}
+function graficarLineaKardexCinco()
+{
+    var GRAFICA = 'linea_kardex_cinco';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexCinco").removeClass("barsKardexCinco");
+    jQuery("#histogramaKardexCinco").css("background", "#2f2f2f");
+    jQuery("#tortaKardexCinco").css("background", "#2f2f2f");
+    jQuery("#puntosKardexCinco").css("background", "#78bde7");
+    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
+    var puntos = traerTop10KardexCinco();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexCinco").html('');
+            jQuery("#contenidoGraficaKardexCinco").html('<div id="barKardexCinco" style="display:none;"></div><div id="pieKardexCinco" style="display:none;"></div><div id="lineKardexCinco" style="display:none;"></div>');
+            jQuery("#lineKardexKardexCinco").text(barras.substr(1));
+            jQuery("#lineKardexCinco").peity("line");
+            jQuery("#contenidoGraficaKardexCinco").append(jQuery("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioLineaKardexCinco) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioKardexCinco = false;
+            }
+        }
+    }
+}
+
+function traerTop10KardexCinco()
+{
+    var date = formatearFecha(new Date().toString());
+    var id_query = "busqueda_top_kardex_cuatro";
+    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '" + date + "'  group by h.cc_cliente order by 2 desc";
+    xmlQueryDB(sql, id_query, 1, false, ruta);
+    var ar_status = getStatusDB(id_query);
+    var size = ar_status['numrows'] - 1;
+    var ar_nits = [], ar_valores = [];
+    var puntos = {};
+    for (var u = 0; u <= size; u++) {
+        ar_nits[u] = xmlGetRow(id_query, u + 1, 0)['cedula'];
+        ar_valores[u] = xmlGetRow(id_query, u + 1, 0)['cantidad'];
+        puntos[u] = {x: ar_nits[u], y: ar_valores[u]};
+    }
+    puntos.size = size;
+    return puntos;
+}
+
+function llenarTablaKardexCinco()
+{
+    var datos = traerTop10KardexCuatro();
+    var size = datos.size + 1;
+    var filas = [];
+    for (var i = 0; i < size; i++) {
+        document.getElementById("tab-kardexcinco-1").innerHTML = "";
+    }
+    document.getElementById("tab-kardexcinco-1").innerHTML = "<thead style='background: #d0e841'>" + "<tr>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id='lang137'>Registro</span></th>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id=''>Campo1</span></th>" + "<th align='right'><span data-lang-id=''>Campo2</span>&nbsp;&nbsp;</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    for (var i = 0; i < size; i++) {
+        filas[i] = document.createElement("tr");
+        filas[i].setAttribute("id", "tr_" + i);
+        filas[i].setAttribute("style", "text-align:center");
+        filas[i].innerHTML = "<td align='left'>" + espacio + (i + 1) + "</td><td align='left'>" + espacio + datos[i]['x'] + "</td>" + '<td align="right">' + " $" + toCurrency(datos[i]['y']) + "" + espacio + "</td>";
+        document.getElementById("tab-kardexcinco-1").appendChild(filas[i]);
+    }
+    if (size === 0) {
+        document.getElementById("tab-kardexcinco-1").innerHTML = "<thead style='background: white; color:red;'>" + "<tr>" + "<th style='padding:15px'>La búsqueda no arroja datos</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    }
+}
+
+/******************/
+
+function graficarHistogramaKardexSeis()
+{
+    var GRAFICA = 'historial_kardex_seis';
+    var posicion = 0;
+    jQuery("canvas.peity").last().removeClass("barsKardexSeis").removeClass("pointsKardexSeis");
+    jQuery("#histogramaKardexSeis").css("background", "#78bde7");
+    jQuery("#tortaKardexSeis").css("background", "#2f2f2f");
+    jQuery("#puntosKardexSeis").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.bar = {colours: ["#4d89f9"], delimiter: ",", height: "100%", max: null, min: 0, spacing: 1, width: "100%"};
+    var puntos = traerTop10KardexSeis();
+    jdg = puntos;
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            if (barras === '') {
+                $("#contenidoGraficaSeis").html("<div style='background: white; margin-left: 25px; margin-right:25px; border:1px solid #CCC; color:red;'><h4 style='text-align:center; color:red;'>No hay datos para realizar la graficación...</h4></div>");
+            } else {
+                jQuery("#contenidoGraficaKardexSeis").html('');
+                jQuery("#contenidoGraficaKardexSeis").html('<div id="barKardexSeis" style="display:none;"></div><div id="pieKardexSeis" style="display:none;"></div><div id="lineKardexSeis" style="display:none;"></div>');
+                jQuery("#barKardexSeis").text(barras.substr(1));
+                jQuery("#barKardexSeis").peity("bar");
+                jQuery("#contenidoGraficaSeis").append($("canvas.peity"));
+                for (var i = 0; i < $("canvas.peity").length; i++) {
+                    if ($("canvas.peity")[i].id === GRAFICA) {
+                        posicion = i;
+                    }
+                }
+                if (inicioHistogramaKardexSeis) {
+                    $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                    inicioHistogramaKardexSeis = false;
+                }
+            }
+        }
+    }
+}
+function graficarTortaKardexSeis()
+{
+    var GRAFICA = 'torta_kardex_seis';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexSeis").removeClass("pointsKardexSeis");
+    jQuery("#histogramaKardexSeis").css("background", "#2f2f2f");
+    jQuery("#tortaKardexSeis").css("background", "#78bde7");
+    jQuery("#puntosKardexSeis").css("background", "#2f2f2f");
+    jQuery.fn.peity.defaults.pie = {colours: ["#ff9900", "#fff4dd", "#ffd592"], delimiter: null, diameter: "100%", height: null, width: null};
+    var puntos = traerTop10KardexCuatro();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexSeis").html('');
+            jQuery("#contenidoGraficaKardexSeis").html('<div id="barKardexSeis" style="display:none;"></div><div id="pieKardexSeis" style="display:none;"></div><div id="lineKardexSeis" style="display:none;"></div>');
+            jQuery("#pieKardexKardexSeis").text(barras.substr(1));
+            jQuery("#pieKardexKardexSeis").peity("pie");
+            jQuery("#contenidoGraficaKardexSeis").append($("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioTortaKardexSeis) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioTortaKardexSeis = false;
+            }
+        }
+    }
+}
+function graficarLineaKardexSeis()
+{
+    var GRAFICA = 'linea_kardex_seis';
+    var posicion = 0;
+    jQuery("canvas.peity").removeClass("histKardexSeis").removeClass("barsKardexSeis");
+    jQuery("#histogramaKardexSeis").css("background", "#2f2f2f");
+    jQuery("#tortaKardexSeis").css("background", "#2f2f2f");
+    jQuery("#puntosKardexSeis").css("background", "#78bde7");
+    jQuery.fn.peity.defaults.line = {colour: "#c6d9fd", strokeColour: "#4d89f9", strokeWidth: 1, delimiter: ",", height: "100%", max: null, min: 0, width: "100%"};
+    var puntos = traerTop10KardexSeis();
+    if (puntos.size !== -1) {
+        if (puntos) {
+            var barras = "";
+            for (var i = 0; i < puntos.size + 1; i++) {
+                barras = barras + "," + puntos[i]['y'];
+            }
+            jQuery("#contenidoGraficaKardexSeis").html('');
+            jQuery("#contenidoGraficaKardexSeis").html('<div id="barKardexSeis" style="display:none;"></div><div id="pieKardexSeis" style="display:none;"></div><div id="lineKardexSeis" style="display:none;"></div>');
+            jQuery("#lineKardexKardexSeis").text(barras.substr(1));
+            jQuery("#lineKardexSeis").peity("line");
+            jQuery("#contenidoGraficaKardexSeis").append(jQuery("canvas.peity"));
+            for (var i = 0; i < $("canvas.peity").length; i++) {
+                if ($("canvas.peity")[i].id === GRAFICA) {
+                    posicion = i;
+                }
+            }
+            if (inicioLineaKardexSeis) {
+                $current = $("canvas.peity:nth-last-child(" + posicion + ")");
+                inicioKardexSeis = false;
+            }
+        }
+    }
+}
+
+function traerTop10KardexSeis()
+{
+    var date = formatearFecha(new Date().toString());
+    var id_query = "busqueda_top_kardex_seis";
+    var sql = "select h.cc_cliente cedula, sum(cn_kardex) cantidad from h_kardex as h inner join mv_kardex as m on h.c_concepto_mov = m.c_concepto_mov and m.f_kardex > '" + date + "'  group by h.cc_cliente order by 2 desc";
+    xmlQueryDB(sql, id_query, 1, false, ruta);
+    var ar_status = getStatusDB(id_query);
+    var size = ar_status['numrows'] - 1;
+    var ar_nits = [], ar_valores = [];
+    var puntos = {};
+    for (var u = 0; u <= size; u++) {
+        ar_nits[u] = xmlGetRow(id_query, u + 1, 0)['cedula'];
+        ar_valores[u] = xmlGetRow(id_query, u + 1, 0)['cantidad'];
+        puntos[u] = {x: ar_nits[u], y: ar_valores[u]};
+    }
+    puntos.size = size;
+    return puntos;
+}
+
+function llenarTablaKardexSeis()
+{
+    var datos = traerTop10KardexSeis();
+    var size = datos.size + 1;
+    var filas = [];
+    for (var i = 0; i < size; i++) {
+        document.getElementById("tab-kardexseis-1").innerHTML = "";
+    }
+    document.getElementById("tab-kardexseis-1").innerHTML = "<thead style='background: #d0e841'>" + "<tr>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id='lang137'>Registro</span></th>" + "<th align='left'>&nbsp;&nbsp;<span data-lang-id=''>Campo1</span></th>" + "<th align='right'><span data-lang-id=''>Campo2</span>&nbsp;&nbsp;</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
+    for (var i = 0; i < size; i++) {
+        filas[i] = document.createElement("tr");
+        filas[i].setAttribute("id", "tr_" + i);
+        filas[i].setAttribute("style", "text-align:center");
+        filas[i].innerHTML = "<td align='left'>" + espacio + (i + 1) + "</td><td align='left'>" + espacio + datos[i]['x'] + "</td>" + '<td align="right">' + " $" + toCurrency(datos[i]['y']) + "" + espacio + "</td>";
+        document.getElementById("tab-kardexseis-1").appendChild(filas[i]);
+    }
+    if (size === 0) {
+        document.getElementById("tab-kardexcinco-1").innerHTML = "<thead style='background: white; color:red;'>" + "<tr>" + "<th style='padding:15px'>La búsqueda no arroja datos</th>" + "</tr>" + "</thead>" + "<tbody style='text-align: center'></tbody>";
     }
 }
